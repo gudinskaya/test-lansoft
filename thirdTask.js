@@ -3,31 +3,34 @@ const array = [{
     age: 10
 }, {
     name: "Masheka",
-    age: 25
+    age: 20
 }, {
     name: "Kakashkin",
     age: 27
 }, {
     name: "Annushka",
-    age: 32
+    age: 42
 }, {
     name: "Akakiy",
     age: 60
 }, {
     name: "Katushka",
-    age: 40
+    age: 50
 }, {
     name: "Katushka",
-    age: 44
+    age: 40
 }]
 
 const unsortIntervals = [30, 20, 40, 50]
 const intervals = unsortIntervals.sort()
 
 const solution = {}
-
-intervals.forEach(interval => solution[interval] = 0)
 solution.lessThenMin = 0
+intervals.forEach((interval, i, arr) => {
+    if (i < arr.length - 1) {
+        solution[interval] = 0
+    } 
+})
 solution.moreThenMax = 0
 
 array.forEach((currUser) => {
@@ -35,7 +38,7 @@ array.forEach((currUser) => {
         solution.lessThenMin++
         return
     }
-    if (currUser.age > intervals[intervals.length - 1]) {
+    if (currUser.age >= intervals[intervals.length - 1]) {
         solution.moreThenMax++
         return
     }
@@ -47,4 +50,11 @@ array.forEach((currUser) => {
     solution[interval]++
 })
 
-console.log(solution)
+console.log('до', intervals[0], '--', solution.lessThenMin, "\n")
+
+intervals.forEach((interval, i, arr) => {
+    if (i < arr.length - 1) {
+        console.log(`${interval}-${arr[Math.min(i + 1, arr.length)]} -- ${solution[interval]}\n`)
+    }
+})
+console.log("больше", intervals[intervals.length-1], "--", solution.moreThenMax)
